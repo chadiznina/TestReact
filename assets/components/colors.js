@@ -1,0 +1,1 @@
+const COLORS = {primary: '#282534', white: '#fff', green :'#2FB097' , };
