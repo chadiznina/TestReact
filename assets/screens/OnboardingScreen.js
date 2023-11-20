@@ -14,7 +14,8 @@ import styles from '../components/Styles';
 const {width, height} = Dimensions.get('window');
 import CustomButton from '../components/Button'; 
 import CirclesBackground from '../components/CirclesBackground';
-const COLORS = {primary: '#282534', white: '#fff', green :'#2FB097' , Cgreen : '#3DC9AD' };
+import { theme } from '../core/theme';
+
 
 
 const slides = [
@@ -84,7 +85,7 @@ const OnboardingScreen = ({navigation}) => {
               style={[
                 styles.indicator,
                 currentSlideIndex == index && {
-                  backgroundColor: COLORS.white,
+                  backgroundColor: theme.colors.white,
                   width: 50,
                 },
               ]}
@@ -97,13 +98,13 @@ const OnboardingScreen = ({navigation}) => {
             onPress={() => navigation.navigate('Login')}
             borderColor="transparent"
             backgroundColor="white" 
-            textColor={COLORS.Cgreen}
+            textColor={theme.colors.BgColor}
             
           />
       <View style={{ height: 15 }} />
       <CustomButton
             label="Inscription"
-            onPress={() => navigation.navigate('Home')}
+            onPress={() => navigation.navigate('newPasswordScreen')}//change this just for testing fast
             borderColor="white"
             backgroundColor="transparent"
             textColor="white"
@@ -114,7 +115,7 @@ const OnboardingScreen = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: COLORS.green}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: theme.colors.green}}>
       <CirclesBackground />
       <FlatList
         ref={ref}

@@ -7,6 +7,7 @@ import Home from '../screens/HomeScreen';
 import OnboardingScreen from '../screens/OnboardingScreen';
 import LoginScreen from '../screens/LoginScreen';
 import ResetPasswordScreen from '../screens/ResetPasswordScreen';
+import newPasswordScreen from '../screens/newPasswordScreen'
 const AuthStack = () => (
   <NavigationContainer>
     <Stack.Navigator initialRouteName="LoginScreen"  screenOptions={{
@@ -29,6 +30,11 @@ const AuthStack = () => (
       />
        <Stack.Screen 
        name="ResetPasswordScreen" component={ResetPasswordScreen} />
+       <Stack.Screen
+        name="newPasswordScreen"
+        component={newPasswordScreen}
+       
+      />
     </Stack.Navigator>
   </NavigationContainer>
 );

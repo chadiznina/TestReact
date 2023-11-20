@@ -9,6 +9,8 @@ export const theme = {
     secondary: '#414757',
     error: '#f13a59',
     white :'#FFFFFF',
-    BgColor :'#3DC9AD'
+    BgColor :'#3DC9AD',
+    OtpGreen : '#64D4BD',
+    green :'#2FB097'
   },
 }

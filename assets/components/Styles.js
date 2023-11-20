@@ -63,9 +63,12 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     marginBottom: 24,
   },
-  row: {
-    flexDirection: 'row',
-    marginTop: 4,
+  link: {
+    color: COLORS.white,
+    fontSize: 12,
+    marginTop: 10,
+    textAlign: 'center',
+    fontFamily:'Work Sans'
   },
 
 });
