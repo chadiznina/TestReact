@@ -95,7 +95,7 @@ const OnboardingScreen = ({navigation}) => {
     <View style={{ flexDirection: 'column', alignItems: 'center' ,  marginBottom: 100, marginTop: 20,}}>   
      <CustomButton
             label="Connexion"
-            onPress={() => navigation.navigate('Home')}
+            onPress={() => navigation.navigate('Login')}
             borderColor="transparent"
             backgroundColor="white" 
             textColor={COLORS.Cgreen}

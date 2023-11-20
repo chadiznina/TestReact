@@ -1,81 +1,84 @@
-import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TextInput,
-  Button,
-  TouchableOpacity,
-} from "react-native";
-export default function App() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  return (
-    <View style={styles.container}>
-      <Image style={styles.image} source={require("./assets/log2.png")} /> 
-      <StatusBar style="auto" />
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Email."
-          placeholderTextColor="#003f5c"
-          onChangeText={(email) => setEmail(email)}
-        /> 
-      </View> 
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Password."
-          placeholderTextColor="#003f5c"
-          secureTextEntry={true}
-          onChangeText={(password) => setPassword(password)}
-        /> 
-      </View> 
-      <TouchableOpacity>
-        <Text style={styles.forgot_button}>Forgot Password?</Text> 
-      </TouchableOpacity> 
-      <TouchableOpacity style={styles.loginBtn}>
-        <Text style={styles.loginText}>LOGIN</Text> 
-      </TouchableOpacity> 
-    </View> 
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { View, Text, StyleSheet, TextInput, Button ,TouchableOpacity } from "react-native";
+import { login } from "../actions/auth";
+import Modal from 'react-native-modal';
+import styles from "../components/Styles";
+
+
+const Login = ({ navigation }) => {
+  const [username, setUsername] = useState();
+  const [password, setPassword] = useState();
+  const [errorModalVisible, setErrorModalVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const dispatch = useDispatch();
+const onLogin = () => {
+    let user = {
+      username: username,
+      password: password,
+    };
+dispatch(login(user))
+      .then((response) => {
+        if (response.status == "success") {
+          navigation.replace("HomeScreen");
+        }
+      })
+      .catch((error) => {
+        console.error('Logout failed:', error);
+      setErrorMessage('Logout failed. Please try again.'); // Set the error message
+      setErrorModalVisible(true); // Show the error modal
+      });
+  };
+  const closeModal = () => {
+    setErrorModalVisible(false);
+  };
+
+return (
+    <View style={Styles.container}>
+      <Text style={Styles.headerTitle}>Please Login to your account</Text>
+      <TextInput
+        style={Styles.input}
+        value={username}
+        onChangeText={(text) => setUsername(text)}
+        placeholder="username"
+      />
+      <TextInput
+        style={Styles.input}
+        value={password}
+        onChangeText={(text) => setPassword(text)}
+        secureTextEntry={true}
+        placeholder="password"
+      />
+      <Button onPress={() => onLogin()} title="Login" />
+      
+      {/* Error Modal */}
+      <Modal isVisible={errorModalVisible}>
+        <View style={styles.modalContainer}>
+          <Text style={styles.modalText}>{errorMessage}</Text>
+          <TouchableOpacity style={styles.modalButton} onPress={closeModal}>
+            <Text style={styles.modalButtonText}>OK</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
+    </View>
   );
-}
-const styles = StyleSheet.create({
+};
+export default Login;
+const Styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
     justifyContent: "center",
-  },
-  image: {
-    marginBottom: 40,
-  },
-  inputView: {
-    backgroundColor: "#FFC0CB",
-    borderRadius: 30,
-    width: "70%",
-    height: 45,
-    marginBottom: 20,
     alignItems: "center",
   },
-  TextInput: {
-    height: 50,
-    flex: 1,
-    padding: 10,
-    marginLeft: 20,
+  headerTitle: {
+    fontSize: 24,
   },
-  forgot_button: {
-    height: 30,
-    marginBottom: 30,
-  },
-  loginBtn: {
-    width: "80%",
-    borderRadius: 25,
-    height: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 40,
-    backgroundColor: "#FF1493",
+  input: {
+    width: 360,
+    fontSize: 16,
+    borderWidth: 1,
+    borderColor: "gray",
+    paddingVertical: 10,
+    marginVertical: 10,
   },
 });

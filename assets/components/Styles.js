@@ -11,25 +11,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  circleTopLeft: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    backgroundColor: 'rgba(255, 0, 0, 0.3)',
-    position: 'absolute',
-    top: 10,
-    left: 10,
-  },
-  circleLeftMiddle: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    backgroundColor: 'rgba(0, 0, 255, 0.3)',
-    position: 'absolute',
-    top: '50%',
-    left: 10,
-    marginTop: -50,
-  },
   subtitle: {
     color: COLORS.white,
     fontSize: 13,
@@ -55,6 +36,27 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     marginHorizontal: 3,
     borderRadius: 2,
+  },
+  // Styles for the Error Modal
+  modalContainer: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  modalText: {
+    fontSize: 16,
+    marginBottom: 10,
+  },
+  modalButton: {
+    backgroundColor: 'blue',
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 10,
+  },
+  modalButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
   },
 
 });

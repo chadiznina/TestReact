@@ -1,55 +1,83 @@
-import React from 'react'
-import {View, Text, Button, StyleSheet, Image} from 'react-native';
+import React, { useCallback, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { logout } from '../actions/auth';
+import Modal from 'react-native-modal';
 
-function HomeScreen({navigation}) {
+const Home = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const [errorModalVisible, setErrorModalVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const onLogout = useCallback(async () => {
+    try {
+      const response = await dispatch(logout());
+
+      if (response.status === 'success') {
+        navigation.replace('OnboardingScreen');
+      }
+    } catch (error) {
+      console.error('Logout failed:', error);
+      setErrorMessage('Logout failed. Please try again.'); // Set the error message
+      setErrorModalVisible(true); // Show the error modal
+    }
+  }, [dispatch, navigation]);
+
+  const closeModal = () => {
+    setErrorModalVisible(false);
+  };
+
   return (
-      <View>
-      <View
-      style={styles.sectionContainer}>
-      <Text
-           style={styles.sectionTitle}>Home Screen</Text>
-      </View>
-        <View
-           style={{
-             backgroundColor: styles.white}}>
-             <Image 
-             source={{uri: 'https://images.pexels.com/photos/7008379/pexels-photo-7008379.jpeg?cs=srgb&dl=pexels-carlos-escobar-7008379.jpg&fm=jpg'}}
-             style={{ width: 360, height: 200, resizeMode: 'cover', margin: 10 }}
-              />
-           <View
-           style={styles.sectionContainer}>
-             <Text>The main industries in the Portland area include computer chip manufacturing and sportswear design. In fact, two famous sportswear companies are based in the Portland Area: Nike and Columbia Sportswear. The largest employer is Intel which employs over 15,000 people in the greater Portland metro area. There are also many smaller technology companies located in downtown Portland. </Text>
-           </View>
-          
-                </View>
+    <View style={styles.container}>
+      <Text style={styles.greeting}>Hello, {user.name}!</Text>
+      <TouchableOpacity style={styles.logoutButton} onPress={onLogout}>
+        <Text style={styles.logoutText}>Logout</Text>
+      </TouchableOpacity>
+
     </View>
   );
-}
-
-export default HomeScreen;
+};
 
 const styles = StyleSheet.create({
-   sectionContainer: {
-     marginTop: 8,
-     paddingHorizontal: 14,
-   },
-   scrollView: {
-     paddingTop: 40,
-   },
-   sectionTitle: {
-     fontSize: 24,
-     fontWeight: '600',
-   },
-   sectionDescription: {
-     marginTop: 8,
-     fontSize: 18,
-     fontWeight: '400',
-   },
-   highlight: {
-     fontWeight: '700',
-   },
-   white: {
-       color: '#ffffff',
-   },
- });
- 
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  greeting: {
+    fontSize: 20,
+    marginBottom: 20,
+  },
+  logoutButton: {
+    backgroundColor: 'red',
+    padding: 10,
+    borderRadius: 5,
+  },
+  logoutText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  // Styles for the Error Modal
+  modalContainer: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  modalText: {
+    fontSize: 16,
+    marginBottom: 10,
+  },
+  modalButton: {
+    backgroundColor: 'blue',
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 10,
+  },
+  modalButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+});
+
+export default Home;
