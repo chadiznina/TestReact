@@ -1,92 +1,159 @@
-import React, { useCallback, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { logout } from '../actions/auth';
-import Modal from 'react-native-modal';
+import React from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { CurvedBottomBar } from 'react-native-curved-bottom-bar';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import restaurantScreen from './RestaurentScreen';
 
-const Home = ({ navigation }) => {
-  const dispatch = useDispatch();
-  const [errorModalVisible, setErrorModalVisible] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+const Screen1 = () => {
+  return <View style={styles.screen1} />;
+};
 
-  const onLogout = useCallback(async () => {
-    try {
-      const response = await dispatch(logout());
+const Screen2 = () => {
+  return <View style={styles.screen2} />;
+};
 
-      if (response.status === 'success') {
-        navigation.replace('OnboardingScreen');
-      }
-    } catch (error) {
-      console.error('Logout failed:', error);
-      setErrorMessage('Logout failed. Please try again.'); // Set the error message
-      setErrorModalVisible(true); // Show the error modal
+export default function Home() {
+  const _renderIcon = (routeName, selectedTab) => {
+    let icon = '';
+
+    switch (routeName) {
+      case 'Commandez simplement chez vos commercants préférés ':
+        icon = 'restaurant-outline';
+        break;
+      case 'Chat':
+        icon = 'chatbox-outline';
+        break;
+      case 'Livreur':
+          icon = 'settings-outline';
+          break;
+          case 'Profil':
+            icon = 'person-circle-outline';
+            break;
+      
     }
-  }, [dispatch, navigation]);
 
-  const closeModal = () => {
-    setErrorModalVisible(false);
+    return (
+      <Ionicons
+        name={icon}
+        size={25}
+        color={routeName === selectedTab ? 'black' : 'gray'}
+      />
+    );
+  };
+
+  const renderTabBar = ({ routeName, selectedTab, navigate }) => {
+    return (
+      <TouchableOpacity
+        onPress={() => navigate(routeName)}
+        style={styles.tabbarItem}
+      >
+        {_renderIcon(routeName, selectedTab)}
+      </TouchableOpacity>
+    );
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.greeting}>Hello!</Text>
-      <TouchableOpacity style={styles.logoutButton} onPress={onLogout}>
-        <Text style={styles.logoutText}>Logout</Text>
-      </TouchableOpacity>
+      <NavigationContainer independent={true}>
+        <CurvedBottomBar.Navigator
+         screenOptions={{ headerShown: false, }}
+          style={styles.bottomBar}
+          shadowStyle={styles.shawdow}
+          height={55}
+          circleWidth={50}
+          bgColor="white"
+          initialRouteName="Commande"
+          borderTopLeftRight
+          renderCircle={({ selectedTab, navigate }) => (
+            <View style={styles.btnCircleUp}>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => Alert.alert('Not dev yet')}
+              >
+                <Ionicons name={'fast-food-outline'} color="gray" size={25} />
+              </TouchableOpacity>
+            </View>
+          )}
+          tabBar={renderTabBar}
+        >
 
-      {/* Error Modal */}
-      <Modal isVisible={errorModalVisible}>
-        <View style={styles.modalContainer}>
-          <Text style={styles.modalText}>{errorMessage}</Text>
-          <TouchableOpacity style={styles.modalButton} onPress={closeModal}>
-            <Text style={styles.modalButtonText}>OK</Text>
-          </TouchableOpacity>
-        </View>
-      </Modal>
+          <CurvedBottomBar.Screen
+            name="Commandez simplement chez vos commercants préférés "
+            position="LEFT"
+            component={restaurantScreen}
+
+          />
+          <CurvedBottomBar.Screen
+            name="Chat"
+            component={() => <Screen2 />}
+            position="RIGHT"
+
+          />
+          <CurvedBottomBar.Screen
+            name="Livreur"
+            component={() => <Screen2 />}
+            position="LEFT"
+
+          />
+          <CurvedBottomBar.Screen
+            name="Profil"
+            component={() => <Screen2 />}
+            position="RIGHT"
+
+          />
+        </CurvedBottomBar.Navigator>
+      </NavigationContainer>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  shawdow: {
+    shadowColor: '#DDDDDD',
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 5,
+  },
+  button: {
+    flex: 1,
     justifyContent: 'center',
+  },
+  bottomBar: {},
+  btnCircleUp: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
     alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#E8E8E8',
+    bottom: 18,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+    elevation: 1,
   },
-  greeting: {
-    fontSize: 20,
-    marginBottom: 20,
-  },
-  logoutButton: {
-    backgroundColor: 'red',
-    padding: 10,
-    borderRadius: 5,
-  },
-  logoutText: {
-    color: 'white',
-    fontWeight: 'bold',
-  },
-  // Styles for the Error Modal
-  modalContainer: {
-    backgroundColor: 'white',
-    padding: 20,
-    borderRadius: 10,
+  tabbarItem: {
+    flex: 1,
     alignItems: 'center',
+    justifyContent: 'center',
   },
-  modalText: {
-    fontSize: 16,
-    marginBottom: 10,
+  screen1: {
+    flex: 1,
+    backgroundColor: '#BFEFFF',
   },
-  modalButton: {
-    backgroundColor: 'blue',
-    padding: 10,
-    borderRadius: 5,
-    marginTop: 10,
-  },
-  modalButtonText: {
-    color: 'white',
-    fontWeight: 'bold',
+  screen2: {
+
+    backgroundColor: '#FFEBCD',
   },
 });
-
-export default Home;

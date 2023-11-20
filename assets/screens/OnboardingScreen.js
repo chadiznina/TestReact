@@ -104,7 +104,7 @@ const OnboardingScreen = ({navigation}) => {
       <View style={{ height: 15 }} />
       <CustomButton
             label="Inscription"
-            onPress={() => navigation.navigate('newPasswordScreen')}//change this just for testing fast
+            onPress={() => navigation.navigate('HomeScreen')}//change this just for testing fast
             borderColor="white"
             backgroundColor="transparent"
             textColor="white"

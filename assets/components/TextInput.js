@@ -8,9 +8,6 @@ export default function TextInput({ errorText, description, ...props }) {
     <View style={styles.container}>
       <Input
         style={styles.input}
-        selectionColor={theme.colors.bg}
-        
-        underlineColor="transparent"
         mode="outlined"
         {...props}
       />
@@ -28,8 +25,10 @@ const styles = StyleSheet.create({
     marginVertical: 12,
   },
   input: {
-    placeholderTextColor : theme.colors.bg,
+    placeholderTextColor : theme.colors.white,
     borderRadius: 10,
+    borderWidth: 0,
+    backgroundColor: theme.colors.green,
   },
   description: {
     fontSize: 13,
