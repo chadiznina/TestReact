@@ -77,6 +77,7 @@ return (
         autoCompleteType="email"
         textContentType="emailAddress"
         keyboardType="email-address"
+        borderColor  = 'white'
       />
        <TextInput
         label="Mot de Passe"

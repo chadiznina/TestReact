@@ -11,6 +11,7 @@ export const theme = {
     white :'#FFFFFF',
     BgColor :'#3DC9AD',
     OtpGreen : '#64D4BD',
-    green :'#2FB097'
+    green :'#2FB097',
+    orange : '#FE6244'
   },
 }

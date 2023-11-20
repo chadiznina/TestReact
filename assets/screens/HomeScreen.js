@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { CurvedBottomBar } from 'react-native-curved-bottom-bar';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import restaurantScreen from './RestaurentScreen';
+import ProfileScreen from './ProfileScreen';
 
 const Screen1 = () => {
   return <View style={styles.screen1} />;
@@ -86,7 +87,7 @@ export default function Home() {
           />
           <CurvedBottomBar.Screen
             name="Chat"
-            component={() => <Screen2 />}
+            component={Screen2}
             position="RIGHT"
 
           />
@@ -98,7 +99,7 @@ export default function Home() {
           />
           <CurvedBottomBar.Screen
             name="Profil"
-            component={() => <Screen2 />}
+            component={() => <ProfileScreen />}
             position="RIGHT"
 
           />
