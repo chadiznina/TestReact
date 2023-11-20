@@ -1,10 +1,9 @@
-// CustomButton.js
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet, Dimensions } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
 
-const CustomButton = ({ label, onPress, borderColor, backgroundColor,borderWidth, borderRadius, textColor, style }) => {
+const CustomButton = ({ label, onPress, borderColor, backgroundColor,borderWidth, borderRadius, textColor, paddingHorizontal , style }) => {
 
   const PaddingHorizontal = width * 0.30; 
   const PaddingVertical = height * 0.02; 

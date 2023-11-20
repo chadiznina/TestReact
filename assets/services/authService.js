@@ -2,7 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const logIn = async (user) => {
   console.log("user info", user);
   const { username, password } = user;
-  if (username === "1" && password === "1") {
+  if (username === "chadi.znina@esprit.tn" && password === "12345") {
     AsyncStorage.setItem("user", JSON.stringify(user));
     return {
       status: "success",

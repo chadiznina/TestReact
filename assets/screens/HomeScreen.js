@@ -29,11 +29,20 @@ const Home = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.greeting}>Hello, {user.name}!</Text>
+      <Text style={styles.greeting}>Hello!</Text>
       <TouchableOpacity style={styles.logoutButton} onPress={onLogout}>
         <Text style={styles.logoutText}>Logout</Text>
       </TouchableOpacity>
 
+      {/* Error Modal */}
+      <Modal isVisible={errorModalVisible}>
+        <View style={styles.modalContainer}>
+          <Text style={styles.modalText}>{errorMessage}</Text>
+          <TouchableOpacity style={styles.modalButton} onPress={closeModal}>
+            <Text style={styles.modalButtonText}>OK</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
     </View>
   );
 };

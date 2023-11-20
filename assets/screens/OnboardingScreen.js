@@ -39,8 +39,7 @@ const slides = [
 ];
 const Slide = ({item}) => {
   return (
-    <View style={{alignItems: 'center', justifyContent: 'center',
-    alignItems: 'center',}}>
+    <View style={{alignItems: 'center', justifyContent: 'center'}}>
       <Image
         source={item?.image}
         style={{height: '20%', width ,resizeMode: 'contain'}}
